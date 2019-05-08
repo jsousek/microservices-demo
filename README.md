@@ -8,8 +8,8 @@ Spring Boot
 
 Gradle 5.0
 
-MySQL
+Lombok
 
-Jenkins
+MySQL
 
 Spring Security
