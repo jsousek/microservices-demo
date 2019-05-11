@@ -1,8 +1,10 @@
 package com.microservicesdemo.jsousek.controllers;
 
+import com.microservicesdemo.jsousek.error_response.ErrorResponseService;
 import com.microservicesdemo.jsousek.models.UserModel;
 import com.microservicesdemo.jsousek.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +14,20 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/")
 public class UserRestController {
     private UserRepository userRepository;
+    private ErrorResponseService errorResponse;
 
     @Autowired
-    public UserRestController(UserRepository userRepository) {
+    public UserRestController(UserRepository userRepository, ErrorResponseService errorResponse) {
         this.userRepository = userRepository;
+        this.errorResponse = errorResponse;
     }
 
     @PostMapping(value = "/register")
     public ResponseEntity registerNewUser(@RequestBody @Validated UserModel newUser){
+
+        if(errorResponse.usernameTaken(newUser)){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("username already taken");
+        }
         userRepository.save(newUser);
         return ResponseEntity.ok("User registered successfully");
 
