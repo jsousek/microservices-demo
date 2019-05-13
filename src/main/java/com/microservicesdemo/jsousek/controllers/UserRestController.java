@@ -6,6 +6,7 @@ import com.microservicesdemo.jsousek.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserRestController {
     private UserRepository userRepository;
     private ErrorResponseService errorResponse;
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     public UserRestController(UserRepository userRepository, ErrorResponseService errorResponse) {
@@ -28,6 +30,7 @@ public class UserRestController {
         if(errorResponse.usernameTaken(newUser)){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("username already taken");
         }
+        newUser.setHashedPassword(passwordEncoder.encode(newUser.hashedPassword));
         userRepository.save(newUser);
         return ResponseEntity.ok("User registered successfully");
 
