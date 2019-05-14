@@ -18,6 +18,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception{
         httpSecurity
@@ -29,7 +30,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "login", "register", "/mock/free").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager))
+                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
