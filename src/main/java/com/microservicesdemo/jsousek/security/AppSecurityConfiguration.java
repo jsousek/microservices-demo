@@ -27,10 +27,11 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .logout()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/", "login", "register", "/mock/free").permitAll()
+                .antMatchers("/", "/login", "/register", "/mock/free", "mock").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+                .addFilter( new JWTAuthorizationFilter(authenticationManager()))
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }

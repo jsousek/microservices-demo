@@ -9,8 +9,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collections;
-import java.util.NoSuchElementException;
-
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
     private UserRepository userRepository;

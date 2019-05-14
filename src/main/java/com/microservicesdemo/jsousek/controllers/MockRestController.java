@@ -4,15 +4,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController(value = "/mock")
+@RestController
 public class MockRestController {
 
-    @GetMapping(value = "/free")
+    @GetMapping(value = "/mock/free")
     public ResponseEntity<String> mockWithoutSecurity(){
         return ResponseEntity.ok("hello, this is jwt unprotected controller");
     }
 
-    @GetMapping(value ="/protected")
+    @GetMapping(value ="/mock/protected")
     public ResponseEntity<String> mockSecured(){
         return ResponseEntity.ok("secured endpoint");
     }

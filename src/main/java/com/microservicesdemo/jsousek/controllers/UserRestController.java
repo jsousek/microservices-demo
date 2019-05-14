@@ -24,6 +24,11 @@ public class UserRestController {
         this.errorResponse = errorResponse;
     }
 
+    @GetMapping("/")
+    public String hello(){
+        return "Hello";
+    }
+
     @PostMapping(value = "/register")
     public ResponseEntity registerNewUser(@RequestBody @Validated UserModel newUser){
 
