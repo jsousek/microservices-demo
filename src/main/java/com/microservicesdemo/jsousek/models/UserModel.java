@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 @Table(name = "users")
 public class UserModel {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     @NotNull
     @Size(min = 4, max = 20, message = "username must be in between 4 and 20 characters long")
