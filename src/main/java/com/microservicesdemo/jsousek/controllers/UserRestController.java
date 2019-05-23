@@ -33,7 +33,7 @@ public class UserRestController extends BaseController{
     public ResponseEntity registerNewUser(@RequestBody @Validated UserModel newUser){
 
         if(errorResponse.usernameTaken(newUser)){
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("username already taken");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse.usernameTakenResponse(newUser.getUsername()));
         }
         newUser.setHashedPassword(passwordEncoder.encode(newUser.hashedPassword));
         userRepository.save(newUser);

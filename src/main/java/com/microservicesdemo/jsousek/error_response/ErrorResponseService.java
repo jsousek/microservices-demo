@@ -15,6 +15,12 @@ public class ErrorResponseService {
 
     public boolean usernameTaken(UserModel userModel){
         return userRepository.findByUsername(userModel.username).isPresent();
+    }
 
+    public ErrorResponseModel usernameTakenResponse(String username){
+        return ErrorResponseModel.builder()
+                                            .error("error")
+                                            .errorMessage("Username already taken for username: "+username)
+                                            .build();
     }
 }
