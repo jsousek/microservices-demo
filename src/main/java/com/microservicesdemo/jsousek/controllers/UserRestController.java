@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RestController
 @RequestMapping(value = "/")
-public class UserRestController {
+public class UserRestController extends BaseController{
     private UserRepository userRepository;
     private ErrorResponseService errorResponse;
     private BCryptPasswordEncoder passwordEncoder;
