@@ -26,7 +26,7 @@ public class UserModel {
     @NotNull
     @Size(min = 6, max = 36, message ="password must be in between 6 and 36 characters")
     @Column(name = "hashed_password")
-    public String hashedPassword;
+    public String password;
     @Column(name ="is_logged")
     boolean isLogged;
 
