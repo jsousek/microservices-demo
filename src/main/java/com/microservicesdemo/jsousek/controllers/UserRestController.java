@@ -3,6 +3,7 @@ package com.microservicesdemo.jsousek.controllers;
 import com.microservicesdemo.jsousek.error_response.ErrorResponseService;
 import com.microservicesdemo.jsousek.models.UserModel;
 import com.microservicesdemo.jsousek.repositories.UserRepository;
+import com.microservicesdemo.jsousek.services.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.*;
 public class UserRestController extends BaseController{
     private UserRepository userRepository;
     private ErrorResponseService errorResponse;
+    private ResponseService responseService;
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserRestController(UserRepository userRepository, ErrorResponseService errorResponse) {
+    public UserRestController(UserRepository userRepository, ErrorResponseService errorResponse, ResponseService responseService) {
         this.userRepository = userRepository;
         this.errorResponse = errorResponse;
+        this.responseService = responseService;
     }
 
     @GetMapping("/")
@@ -37,7 +40,7 @@ public class UserRestController extends BaseController{
         }
         newUser.setHashedPassword(passwordEncoder.encode(newUser.hashedPassword));
         userRepository.save(newUser);
-        return ResponseEntity.ok("User registered successfully");
+        return ResponseEntity.ok(responseService.succesfulRegistrationResponse(newUser.getUsername()));
 
     }
 
